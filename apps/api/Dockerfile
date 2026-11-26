@@ -1,5 +1,5 @@
 # Étape 1 : compilation TypeScript avec toutes les dépendances
-FROM node:20-alpine AS build
+FROM node:24-alpine AS build
 WORKDIR /app
 COPY package.json package-lock.json ./
 COPY apps/api/package.json apps/api/
@@ -9,7 +9,7 @@ COPY apps/api apps/api
 RUN npm run build --workspace=@byte/api
 
 # Étape 2 : image d'exécution légère (dépendances de production + JS compilé + migrations)
-FROM node:20-alpine
+FROM node:24-alpine
 ENV NODE_ENV=production
 WORKDIR /app
 COPY package.json package-lock.json ./
